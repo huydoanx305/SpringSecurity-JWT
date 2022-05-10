@@ -33,4 +33,9 @@ public class AccountController extends BaseController<Account> {
         accountService.addRoleToAccount(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().body("add Role success");
     }
+
+    @DeleteMapping("/account/{id}")
+    public ResponseEntity<?> deleteAccount(@PathVariable("id") Long id) {
+        return this.resSuccess(accountService.deleteAccount(id));
+    }
 }

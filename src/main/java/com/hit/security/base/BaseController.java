@@ -1,7 +1,7 @@
 package com.hit.security.base;
 
 import com.hit.security.contant.ResponseMessageEnum;
-import com.hit.security.dto.response.ResponseDTO;
+import com.hit.security.dto.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

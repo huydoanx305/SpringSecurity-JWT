@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BaseEntity  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,4 +31,5 @@ public abstract class BaseEntity  {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
 }

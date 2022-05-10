@@ -41,9 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(request -> corsConfiguration())
                 .and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .antMatchers("/api/**").hasAnyAuthority("ROLE_ADMIN")
-//                .antMatchers("/api/**").authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -53,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.applyPermitDefaultValues();
         corsConfiguration.addAllowedMethod(HttpMethod.PATCH);
+        corsConfiguration.addAllowedMethod(HttpMethod.PUT);
         corsConfiguration.addAllowedMethod(HttpMethod.DELETE);
         return corsConfiguration;
     }

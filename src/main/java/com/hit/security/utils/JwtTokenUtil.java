@@ -1,4 +1,4 @@
-package com.hit.security.Utils;
+package com.hit.security.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

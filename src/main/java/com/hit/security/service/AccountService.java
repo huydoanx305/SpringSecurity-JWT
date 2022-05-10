@@ -6,8 +6,9 @@ import com.hit.security.models.Account;
 import java.util.List;
 
 public interface AccountService {
+    List<Account> getAccounts();
+    Account getAcc(String username);
     Account saveAccount(AccountDTO accountDTO);
     void addRoleToAccount(String username, String roleName);
-    Account getAcc(String username);
-    List<Account> getAccounts();
+    Account deleteAccount(Long id);
 }

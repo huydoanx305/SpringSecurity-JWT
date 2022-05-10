@@ -1,4 +1,4 @@
-package com.hit.security.dto.response;
+package com.hit.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

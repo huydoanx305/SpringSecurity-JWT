@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -35,9 +36,20 @@ public class AccountServiceImpl implements AccountService{
     private ModelMapper mapper;
 
     @Override
+    public List<Account> getAccounts() {
+        return accountRepository.findAll();
+    }
+
+    @Override
+    public Account getAcc(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @Override
     public Account saveAccount(AccountDTO accountDTO) {
         Account account = mapper.map(accountDTO, Account.class);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
+        account.setRoles(Set.of(roleRepository.findByRoleName("ROLE_USER")));
         return accountRepository.save(account);
     }
 
@@ -66,12 +78,12 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account getAcc(String username) {
-        return accountRepository.findByUsername(username);
-    }
-
-    @Override
-    public List<Account> getAccounts() {
-        return accountRepository.findAll();
+    public Account deleteAccount(Long id) {
+        Optional<Account> account = accountRepository.findById(id);
+        if(account.isEmpty()) {
+            throw new NotFoundException("Can not find account by id: " + id);
+        }
+        accountRepository.delete(account.get());
+        return account.get();
     }
 }

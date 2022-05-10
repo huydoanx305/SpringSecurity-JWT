@@ -1,6 +1,6 @@
 package com.hit.security.filter;
 
-import com.hit.security.Utils.JwtTokenUtil;
+import com.hit.security.utils.JwtTokenUtil;
 import com.hit.security.service.impl.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +28,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             final String authorizationHeader = request.getHeader("Authorization");
 
+            System.out.println(authorizationHeader);
             String username = null;
             String jwt = null;
 
