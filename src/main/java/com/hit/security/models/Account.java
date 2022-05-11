@@ -18,15 +18,12 @@ import java.util.Set;
 @Entity
 @Table(name = "accounts")
 public class Account extends BaseEntity {
-    @NotBlank
     @Nationalized
     private String fullName;
 
     @Column(unique = true)
-    @NotBlank
     private String username;
 
-    @NotBlank
     private String password;
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)

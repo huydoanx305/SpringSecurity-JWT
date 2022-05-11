@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Service
@@ -13,8 +14,6 @@ public class JwtTokenUtil {
 
     @Value("${jwt.secret}")
     private String SECRET_KEY;
-
-    private final Long TIME_EXPIRATION = 86400000L;
 
     public String extractUsername(String token) {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
@@ -34,9 +33,13 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(new Date().getTime());
+        int TIME_EXPIRATION = 86400000;
+        calendar.add(Calendar.MINUTE, TIME_EXPIRATION);
         return Jwts.builder()
                 .setSubject(userDetails.getUsername()).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TIME_EXPIRATION))
+                .setExpiration(calendar.getTime())
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
